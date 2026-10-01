@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Security Investigation Console</title>
+
+<style>
+
+body{
+background:#f3f3f3;
+color:#222;
+font-family:Segoe UI, monospace;
+margin:0;
+}
+
+.header{
+background:#0078d4;
+color:white;
+padding:12px;
+font-size:18px;
+font-weight:bold;
+}
+
+.container{
+display:flex;
+height:90vh;
+}
+
+.sidebar{
+width:250px;
+background:#ffffff;
+border-right:1px solid #ddd;
+padding:15px;
+}
+
+.sidebar h3{
+margin-top:0;
+}
+
+.sidebar div{
+margin-bottom:8px;
+}
+
+.main{
+flex:1;
+padding:20px;
+}
+
+textarea{
+width:100%;
+height:160px;
+background:#ffffff;
+color:#222;
+border:1px solid #ccc;
+font-family:monospace;
+padding:10px;
+}
+
+button{
+background:#0078d4;
+border:none;
+color:white;
+padding:10px 20px;
+margin-top:10px;
+cursor:pointer;
+}
+
+button:hover{
+background:#106ebe;
+}
+
+table{
+border-collapse:collapse;
+margin-top:20px;
+width:100%;
+background:white;
+}
+
+td,th{
+border:1px solid #ddd;
+padding:6px;
+}
+
+th{
+background:#f5f5f5;
+}
+
+.results{
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+Security Log Investigation Console
+</div>
+
+<div class="container">
+
+<div class="sidebar">
+
+<h3>Tables</h3>
+
+<div>SigninLogs</div>
+<div>EmailEvents</div>
+<div>DeviceLogonEvents</div>
+<div>DeviceProcessEvents</div>
+<div>DeviceNetworkEvents</div>
+
+<h3>Query Syntax</h3>
+
+<div>table_name</div>
+<div>| where column == "value"</div>
+<div>| where column != "value"</div>
+<div>| where column contains "text"</div>
+<div>| where column has "text"</div>
+<div>| where column startswith "text"</div>
+<div>| where column endswith "text"</div>
+<div>| where col1 == "x" and col2 == "y"</div>
+<div>| project col1, col2</div>
+<div>| distinct col1, col2</div>
+<div>| summarize count() by column</div>
+<div>| summarize count() by col1, col2</div>
+<div>| sort by column</div>
+<div>| sort by column desc</div>
+<div>| top 10 by column</div>
+<div>| take 50</div>
+<div>| limit 50</div>
+<div>| count</div>
+
+</div>
+
+<div class="main">
+
+<textarea id="query" placeholder="SigninLogs
+| where ResultType == &quot;Failed&quot;
+| summarize count() by IPAddress
+| sort by count desc
+| take 10"></textarea>
+
+<br>
+
+<button onclick="runQuery()">Run Query</button>
+
+<div class="results" id="results"></div>
+
+</div>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>

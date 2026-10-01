@@ -1,0 +1,9 @@
+services:
+  kql-ctf:
+    build: .
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
