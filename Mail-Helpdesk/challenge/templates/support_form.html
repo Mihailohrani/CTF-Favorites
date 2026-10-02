@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Request — IT Helpdesk</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #eceef1;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #1f1f1f;
+      color: #d8d8d8;
+      padding: 12px 28px;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    header .badge {
+      background: #3a3a3a;
+      color: #aaa;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    header .timestamp {
+      font-size: 11px;
+      color: #666;
+      font-variant-numeric: tabular-nums;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 16px 72px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #d0d3d8;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #f7f8f9;
+      border-bottom: 1px solid #d0d3d8;
+      padding: 20px 28px 18px;
+    }
+
+    .card-header h1 {
+      font-size: 17px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 3px;
+    }
+
+    .card-header p {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .card-body {
+      padding: 28px 28px 24px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    label .req { color: #c0392b; margin-left: 2px; }
+
+    input[type="email"],
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 14px;
+      font-family: inherit;
+      line-height: 1.4;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    input[type="email"]:hover,
+    input[type="text"]:hover,
+    textarea:hover {
+      border-color: #aaa;
+    }
+
+    input[type="email"]:focus,
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #4a7aad;
+      box-shadow: 0 0 0 3px rgba(74,122,173,0.15);
+      background: #fafcff;
+    }
+
+    input.has-value,
+    textarea.has-value {
+      border-color: #b0b8c4;
+    }
+
+    textarea {
+      resize: vertical;
+      line-height: 1.6;
+      min-height: 140px;
+    }
+
+    .row-two {
+      display: flex;
+      gap: 14px;
+    }
+
+    .row-two .field { flex: 1; }
+
+    .hint {
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    .char-count {
+      font-size: 11px;
+      color: #bbb;
+      text-align: right;
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums;
+      transition: color 0.2s;
+    }
+
+    .char-count.warn { color: #c0392b; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin: 24px 0 20px;
+    }
+
+    .card-footer {
+      background: #f7f8f9;
+      border-top: 1px solid #d0d3d8;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    button[type="submit"] {
+      background: #1f1f1f;
+      color: #f0f0f0;
+      border: none;
+      padding: 9px 22px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 600;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    button[type="submit"]:hover {
+      background: #333;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    button[type="submit"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(74,122,173,0.3);
+    }
+
+    button[type="submit"] .send-icon {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .cancel-link {
+      font-size: 12px;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .cancel-link:hover { color: #333; text-decoration: underline; }
+
+    .footer-note {
+      font-size: 11px;
+      color: #bbb;
+    }
+
+    .progress-bar {
+      height: 2px;
+      background: #e8e8e8;
+      border-radius: 1px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background: #4a7aad;
+      border-radius: 1px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #aaa;
+      padding: 14px;
+      border-top: 1px solid #d8d8d8;
+      background: #e4e6ea;
+    }
+
+    @media (max-width: 480px) {
+      .card-body { padding: 20px 18px; }
+      .card-header, .card-footer { padding-left: 18px; padding-right: 18px; }
+      .row-two { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92V19a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 10.8a19.79 19.79 0 0 1-3-8.58A2 2 0 0 1 3 0h2.09a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L6.91 7.09a16 16 0 0 0 6 6l.38-.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 20 15h2.92z"/>
+    </svg>
+    IT Helpdesk &mdash; Support Portal
+    <span class="badge">Internal</span>
+  </div>
+  <span class="timestamp" id="live-clock"></span>
+</header>
+
+<main>
+  <div class="card">
+    <div class="card-header">
+      <h1>Support Request</h1>
+      <p>Complete the fields below. The helpdesk team will respond to your email.</p>
+      <div class="progress-bar"><div class="fill" id="form-progress"></div></div>
+    </div>
+
+    <div class="card-body">
+      <form method="POST" action="/support" novalidate id="support-form">
+
+        <div class="row-two">
+          <div class="field">
+            <label for="field-to">To <span class="req">*</span></label>
+            <input type="email" id="field-to" name="to" placeholder="helpdesk@company.internal" required autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="field-from">From <span class="req">*</span></label>
+            <input type="email" id="field-from" name="from" placeholder="you@company.internal" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-subject">Subject <span class="req">*</span></label>
+          <input type="text" id="field-subject" name="subject" placeholder="Brief description of the issue" required maxlength="120" />
+          <div class="char-count" id="subject-count">0 / 120</div>
+        </div>
+
+        <div class="field">
+          <label for="field-message">Message <span class="req">*</span></label>
+          <textarea id="field-message" name="message" rows="8" placeholder="Describe the issue in detail: steps to reproduce, error messages, affected systems, etc." required></textarea>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="field" style="display: none;">
+          <label for="field-mail-options">Mail Options</label>
+          <input type="hidden" id="field-mail-options" name="mail_options" />
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card-footer">
+      <div class="actions">
+        <button type="submit" form="support-form">
+          <svg class="send-icon" viewBox="0 0 24 24">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          Send
+        </button>
+        <a class="cancel-link" href="/">Cancel</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  (function () {
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateClock() {
+      const now = new Date();
+      const el = document.getElementById('live-clock');
+      if (el) el.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    const requiredFields = ['field-to', 'field-from', 'field-subject', 'field-message'];
+    const progressBar = document.getElementById('form-progress');
+
+    function updateProgress() {
+      const filled = requiredFields.filter(id => {
+        const el = document.getElementById(id);
+        return el && el.value.trim().length > 0;
+      }).length;
+      progressBar.style.width = ((filled / requiredFields.length) * 100) + '%';
+    }
+
+    const subjectInput = document.getElementById('field-subject');
+    const subjectCount = document.getElementById('subject-count');
+
+    subjectInput.addEventListener('input', function () {
+      const len = this.value.length;
+      subjectCount.textContent = len + ' / 120';
+      subjectCount.classList.toggle('warn', len >= 100);
+      updateProgress();
+    });
+
+    document.querySelectorAll('input, textarea').forEach(function (el) {
+      el.addEventListener('input', function () {
+        this.classList.toggle('has-value', this.value.trim().length > 0);
+        updateProgress();
+      });
+      el.addEventListener('blur', function () {
+        this.classList.toggle('has-value', this.value.trim().length > 0);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

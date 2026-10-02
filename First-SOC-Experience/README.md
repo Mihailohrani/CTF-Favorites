@@ -59,8 +59,8 @@ Flag recovered
 Clone the repository and enter the challenge directory:
 
 ```bash
-git clone <repository-url>
-cd First-SOC-Experience/challenge
+git clone git@github.com:Mihailohrani/CTF-Favorites.git
+cd CTF-Favorites/First-SOC-Experience/challenge
 ```
 
 Build and start the challenge with Docker Compose:
